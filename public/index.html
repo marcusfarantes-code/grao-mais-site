@@ -6,6 +6,8 @@
 <title>Grão+ Finanças Pessoais</title>
 <meta name="description" content="Grão+: importe faturas e extratos, organize o orçamento em tocas e potinhos e acompanhe investimentos, dívidas e cartões. De grão em grão, a gente enche a toca.">
 <meta name="theme-color" content="#3D2385">
+<link rel="icon" href="favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
@@ -36,14 +38,18 @@ p{margin:0}
 .btn:hover{transform:translateY(-2px)}
 .btn-grao{background:var(--grao);color:#1C1235}
 .btn-linha{border:1.5px solid rgba(255,255,255,.4);color:#fff}
-svg.esq{color:currentColor}
+/* Esquil.ia: as ilustrações têm fundo aveia, então entram como "fotos" redondas */
+.esq{display:block;border-radius:28px;background:#E9DCCB;object-fit:cover}
+.balao{position:relative;background:var(--card);border:1px solid var(--linha);border-radius:18px 18px 18px 4px;padding:12px 16px;font-weight:600;max-width:24em}
+.com-esq{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.com-esq .esq{width:132px;height:132px}
+@media (max-width:520px){.com-esq .esq{width:96px;height:96px;border-radius:22px}}
 
 /* topo */
 .topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--roxo) 92%,transparent);backdrop-filter:blur(10px);color:#fff}
 .topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo .selo{width:38px;height:38px;border-radius:10px;background:var(--roxo);display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)}
-.logo .selo svg{width:28px;height:25px;color:#fff}
+.logo .selo{width:38px;height:38px;border-radius:10px;display:block;box-shadow:0 0 0 1.5px rgba(255,255,255,.25)}
 .logo b{font-family:var(--display);font-weight:800;font-size:1.35rem}
 .logo b i{font-style:normal;color:var(--grao)}
 .topo nav{display:flex;gap:22px;font-weight:600;font-size:.95rem}
@@ -58,7 +64,6 @@ svg.esq{color:currentColor}
 .heroi .lead{font-size:1.15rem;opacity:.88;max-width:34em;margin-top:20px}
 .heroi .acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .heroi .nota{margin-top:18px;font-size:.85rem;opacity:.7}
-.heroi .fundo{position:absolute;right:-120px;bottom:-60px;width:520px;opacity:.06;color:#fff;pointer-events:none}
 @media (max-width:860px){.heroi .wrap{grid-template-columns:1fr;padding-block:48px 64px}}
 
 /* celular */
@@ -96,6 +101,22 @@ section{padding-block:88px}
 .videos figure{margin:0;display:grid;gap:10px}
 .videos video{width:100%;aspect-ratio:4/5;border-radius:20px;background:var(--roxo);display:block;box-shadow:0 10px 30px rgba(28,18,53,.15)}
 .videos figcaption{font-weight:600;color:var(--mudo);font-size:.95rem}
+
+/* Esquil.ia */
+.esqgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:860px){.esqgrid{grid-template-columns:1fr;gap:36px}}
+.esq-palco{position:relative;display:grid;gap:16px;justify-items:start}
+.esq-grande{width:200px;height:200px}
+.chat-mock{display:grid;gap:10px;width:100%;max-width:440px;background:var(--bg);border:1px solid var(--linha);border-radius:24px;padding:18px}
+.msg{margin:0;padding:10px 14px;border-radius:16px;font-size:.95rem;max-width:88%;color:var(--fg)}
+.msg.ela{background:var(--card);border:1px solid var(--linha);border-bottom-left-radius:4px;justify-self:start}
+.msg.eu{background:var(--roxo);color:#fff;border-bottom-right-radius:4px;justify-self:end}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{padding:6px 12px;border-radius:99px;border:1.5px solid var(--marca);color:var(--marca);font-weight:700;font-size:.85rem}
+.lista-esq{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:12px;color:var(--mudo)}
+.lista-esq b{color:var(--fg)}
+.lista-esq li{padding-left:22px;position:relative}
+.lista-esq li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--grao)}
 
 /* tocas */
 .tocas{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
@@ -162,31 +183,28 @@ details p{color:var(--mudo);margin-top:10px}
 /* fecho */
 .fecho{background:var(--roxo);color:#fff;text-align:center}
 .fecho .wrap{display:grid;justify-items:center;gap:20px}
-.fecho svg{width:90px;height:80px;color:#fff}
 .fecho p{opacity:.85;max-width:32em}
 footer{background:#110B1E;color:#A79EBD;font-size:.88rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="esq" viewBox="88 108 396 352"><path d="M296 452 C408 452 472 382 472 296 C472 198 404 128 324 122 C280 119 246 138 232 168 C262 164 294 172 318 192 C354 222 382 262 382 310 C382 368 346 406 300 416 C306 432 304 446 296 452 Z" fill="currentColor"/><path fill-rule="evenodd" d="M156 452 C146 410 150 352 176 316 C196 290 222 280 250 284 C292 290 312 338 308 392 C306 422 298 442 288 452 Z M174 362 C174 330 196 318 216 318 L217 304 L229 304 L228 318 C248 320 266 332 266 362 L261 368 C261 404 244 432 220 439 C196 432 179 404 179 368 Z" fill="currentColor"/><path fill-rule="evenodd" d="M268 238 C268 276 236 300 200 300 C176 300 156 290 138 276 L114 260 C98 250 98 234 112 228 L140 214 C150 186 172 170 202 170 C238 170 268 200 268 238 Z M182 234 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 Z" fill="currentColor"/><path d="M188 182 L206 132 C210 120 228 120 232 132 L252 196 Z" fill="currentColor"/><path d="M182 360 C182 336 200 326 220 326 C240 326 258 336 258 360 Z" fill="var(--grao,#F2A541)"/><path d="M187 370 L253 370 C253 402 238 424 220 430 C202 424 187 402 187 370 Z" fill="var(--grao,#F2A541)"/><path d="M216 328 L218 312 L226 312 L224 328 Z" fill="var(--grao,#F2A541)"/></symbol></defs></svg>
 
 <header class="topo">
   <div class="wrap">
-    <a class="logo" href="#inicio" aria-label="Grão+ início"><span class="selo"><svg class="esq" viewBox="88 108 396 352"><use href="#esq"/></svg></span><b>Grão<i>+</i></b></a>
-    <nav aria-label="Seções"><a href="#video">Vídeos</a><a href="#tocas">Tocas</a><a href="#recursos">Recursos</a><a href="#importar">Importação</a><a href="#plano">Plano</a><a href="#duvidas">Dúvidas</a></nav>
+    <a class="logo" href="#inicio" aria-label="Grão+ início"><img class="selo" src="marca/bolota.jpg" width="38" height="38" alt=""><b>Grão<i>+</i></b></a>
+    <nav aria-label="Seções"><a href="#video">Vídeos</a><a href="#esquilia">Esquil.ia</a><a href="#tocas">Tocas</a><a href="#recursos">Recursos</a><a href="#plano">Plano</a><a href="#duvidas">Dúvidas</a></nav>
     <a class="btn btn-grao" style="padding:10px 16px" href="https://grao-mais.marantes.workers.dev">Entrar</a>
   </div>
 </header>
 
 <main id="inicio">
 <section class="heroi">
-  <svg class="fundo esq" viewBox="88 108 396 352" aria-hidden="true"><use href="#esq"/></svg>
   <div class="wrap">
     <div>
       <p class="olho">Finanças pessoais</p>
       <h1 style="margin-top:14px">De grão em grão, a gente <em>enche a toca.</em></h1>
-      <p class="lead">O Grão+ lê suas faturas e extratos, separa cada gasto no potinho certo e mostra quanto sobrou no mês. Investimentos, dívidas e cartões de crédito ficam no mesmo lugar, no seu celular.</p>
+      <p class="lead">O Grão+ lê suas faturas e extratos, separa cada gasto no potinho certo e mostra quanto sobrou no mês. E a Esquil.ia, nossa esquilinha, anota seus gastos por voz. Investimentos, dívidas e cartões ficam no mesmo lugar, no seu celular.</p>
       <div class="acoes">
         <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Abrir o Grão+</a>
         <a class="btn btn-linha" href="#video">Ver funcionando</a>
@@ -218,7 +236,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   </div>
 </section>
 
-<section id="video">
+<section id="video" style="background:var(--bg)">
   <div class="wrap">
     <div class="cabeca">
       <p class="olho">Veja funcionando</p>
@@ -234,10 +252,37 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   </div>
 </section>
 
-<section id="tocas" class="claro">
+<section id="esquilia" class="claro">
+  <div class="wrap esqgrid">
+    <div class="esq-palco">
+      <img class="esq esq-grande" src="mascote/mascote-acenando.jpg" width="200" height="200" alt="Esquil.ia, a esquilinha do Grão+, acenando">
+      <div class="chat-mock" aria-label="Exemplo de conversa com a Esquil.ia">
+        <p class="msg ela">Oi! Sou a Esquil.ia 🐿️ Me conta o que você gastou. Pode mandar áudio ou escrever!</p>
+        <p class="msg eu">🎙️ “Gastei 52 reais no iFood ontem”</p>
+        <p class="msg ela">Anotado! Saiu de qual conta?</p>
+        <div class="chips"><span>Nubank cartão</span><span>Itaú conta</span><span>Dinheiro</span></div>
+        <p class="msg ela">Fechou: <b>R$ 52,00 · iFood · ontem · Nubank cartão · Alimentação fora</b>. Posso guardar?</p>
+      </div>
+    </div>
+    <div class="cabeca" style="margin:0">
+      <p class="olho">Conheça a Esquil.ia</p>
+      <h2>A esquilinha que anota seus gastos por você.</h2>
+      <p>Fale ou escreva do seu jeito. A Esquil.ia pergunta o que faltar (valor, data, conta, toca e potinho), mostra um resumo e só grava quando você confirma.</p>
+      <ul class="lista-esq">
+        <li><b>Por voz ou texto.</b> Toque no microfone e fale. Ela envia sozinha quando você termina.</li>
+        <li><b>Respostas rápidas.</b> Botões com as suas contas e potinhos para responder num toque.</li>
+        <li><b>Também organiza.</b> Cria, renomeia e muda potinhos de toca quando você pedir.</li>
+        <li><b>Lê suas faturas.</b> PDFs e prints de tela passam pela leitura dela antes da conferência.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="tocas">
   <div class="wrap tocas">
     <div>
       <div class="cabeca" style="margin-bottom:32px">
+        <img class="esq" src="mascote/mascote-guardando.jpg" width="120" height="120" alt="Esquil.ia guardando bolotas num potinho" style="width:120px;height:120px">
         <p class="olho">Orçamento em dois níveis</p>
         <h2>Tocas guardam potinhos. Potinhos guardam grãos.</h2>
         <p>Cada gasto cai num potinho. Você define quanto cabe em cada potinho, e a toca soma tudo. Assim dá para ver de longe onde o dinheiro foi e, de perto, o que passou do ponto.</p>
@@ -264,6 +309,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
     <div class="cabeca">
       <p class="olho">O que tem dentro</p>
       <h2>Tudo o que mexe no seu bolso, numa tela de celular.</h2>
+      <p>E tudo rápido: a tela muda na hora em que você toca, e o app sincroniza por trás.</p>
     </div>
     <div class="grade">
       <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Início</h3><p>Quanto sobrou no mês, tocas com % de uso, patrimônio, gastos por potinho e por banco e os últimos lançamentos.</p></article>
@@ -271,6 +317,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
       <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg></span><h3>Cartões de crédito</h3><p>Compras agrupadas por fatura, pelo fechamento e vencimento de cada cartão. Pagamentos parciais ou totais e consumo do limite.</p></article>
       <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Patrimônio</h3><p>Suas aplicações com valor aplicado, valor atual, rendimento e a distribuição entre elas.</p></article>
       <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><h3>Dívidas</h3><p>Saldo, parcelas, juros e a data de quitação. Um toque em “Pagar parcela” e a conta se atualiza.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Lançar por voz</h3><p>Fale “paguei 80 de luz” e a Esquil.ia monta o lançamento. Você confere e confirma.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4h10l-1 16H8z"/><path d="M6 8h12"/></svg></span><h3>Detalhe do potinho</h3><p>Toque num potinho e veja tudo o que entrou nele no mês, quanto já foi e quanto ainda cabe.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></span><h3>Estornos</h3><p>Valor que volta para a conta ou para o cartão entra como estorno e abate do potinho certo.</p></article>
       <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .6 3.5 2.6 3.5 6"/></svg></span><h3>Para a família</h3><p>Até 3 pessoas no mesmo espaço, cada uma com seu login. Filtre o extrato por quem gastou.</p></article>
     </div>
   </div>
@@ -279,8 +328,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <section id="importar" class="claro">
   <div class="wrap">
     <div class="cabeca">
-      <p class="olho">Importação</p>
-      <h2>Chega de digitar gasto por gasto.</h2>
+      <div class="com-esq"><img class="esq" src="mascote/mascote-lendo.jpg" width="132" height="132" alt="Esquil.ia lendo um papelzinho"><div style="display:grid;gap:14px"><p class="olho">Importação</p>
+      <h2>Chega de digitar gasto por gasto.</h2></div></div>
       <p>Arquivos simples são lidos no próprio navegador. PDFs, prints e textos colados são lidos por inteligência artificial e passam pela sua conferência antes de entrar.</p>
     </div>
     <div class="imp">
@@ -295,7 +344,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <section>
   <div class="wrap">
-    <div class="cabeca"><p class="olho">Seus dados</p><h2>Cada família na sua própria toca.</h2></div>
+    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-toca.jpg" width="132" height="132" alt="Esquil.ia entrando na toca"><div style="display:grid;gap:14px"><p class="olho">Seus dados</p><h2>Cada família na sua própria toca.</h2></div></div>
     <div class="seg">
       <div><h3>Banco de dados só seu</h3><p>Cada cliente tem um banco separado, isolado dos demais. Nada se mistura.</p></div>
       <div><h3>Senha bem guardada</h3><p>Senhas protegidas com PBKDF2. Todo acesso novo começa com senha provisória, trocada no primeiro login.</p></div>
@@ -307,8 +356,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <section id="plano" class="claro" style="background:var(--bg)">
   <div class="wrap">
     <div class="cabeca">
-      <p class="olho">Planos</p>
-      <h2>Dois planos, os mesmos recursos.</h2>
+      <div class="com-esq"><img class="esq" src="mascote/mascote-comemorando.jpg" width="132" height="132" alt="Esquil.ia comemorando num monte de bolotas"><div style="display:grid;gap:14px"><p class="olho">Planos</p>
+      <h2>Dois planos, os mesmos recursos.</h2></div></div>
       <p>A cobrança é recorrente no cartão de crédito: sai uma mensalidade por mês e o valor do ano não fica preso no seu limite.</p>
     </div>
     <div class="planos">
@@ -329,7 +378,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
     <ul class="inclui">
       <li>Todas as telas: início, extrato, tocas, cartões, patrimônio e dívidas</li>
       <li>1 usuário principal e até 2 adicionais</li>
-      <li>100 leituras por IA por mês (faturas em PDF e prints)</li>
+      <li>Esquil.ia: 100 conversas ou leituras de fatura por mês</li>
       <li>Importação ilimitada de OFX e CSV</li>
       <li>Instala no celular como aplicativo</li>
     </ul>
@@ -338,20 +387,21 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <section id="duvidas">
   <div class="wrap">
-    <div class="cabeca"><p class="olho">Dúvidas</p><h2>Perguntas frequentes</h2></div>
+    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-tonto.jpg" width="132" height="132" alt="Esquil.ia caída e tonta, com os óculos voando"><div style="display:grid;gap:14px"><p class="olho">Dúvidas</p><h2>Perguntas frequentes</h2></div></div>
     <div class="faq">
       <details><summary>Preciso baixar na loja de aplicativos?</summary><p>Não. O Grão+ abre no navegador e pode ser instalado na tela inicial do Android ou do iPhone, como qualquer app.</p></details>
       <details><summary>O Grão+ se conecta ao meu banco?</summary><p>Não. Você exporta o extrato ou a fatura do banco e importa no Grão+. Assim ninguém precisa da sua senha do banco.</p></details>
       <details><summary>Em que mês entra uma compra no cartão?</summary><p>No mês do vencimento da fatura. O Grão+ usa o fechamento e o vencimento de cada cartão para colocar a compra na fatura certa.</p></details>
       <details><summary>E se eu importar o mesmo extrato duas vezes?</summary><p>Na conferência, os lançamentos repetidos já aparecem desmarcados. Pagamentos de fatura também, para o gasto não contar em dobro.</p></details>
-      <details><summary>O que acontece quando acabam as leituras por IA do mês?</summary><p>Só a leitura de PDFs e prints pausa até o mês seguinte. OFX, CSV e todo o resto continuam funcionando normalmente.</p></details>
+      <details><summary>A Esquil.ia grava sozinha?</summary><p>Não. Ela pergunta o que faltar, mostra um resumo do lançamento e só grava depois que você confirma.</p></details>
+      <details><summary>O que acontece quando acabam as conversas da Esquil.ia no mês?</summary><p>Só a Esquil.ia (conversas, voz e leitura de PDFs e prints) pausa até o mês seguinte. OFX, CSV, lançamentos à mão e todo o resto continuam funcionando normalmente.</p></details>
     </div>
   </div>
 </section>
 
 <section class="fecho">
   <div class="wrap">
-    <svg class="esq" viewBox="88 108 396 352" aria-hidden="true"><use href="#esq"/></svg>
+    <img class="esq" src="mascote/mascote-pegando.jpg" width="160" height="160" alt="Esquil.ia pulando para pegar uma bolota no ar" style="width:160px;height:160px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.15)">
     <h2>Comece a encher a sua toca.</h2>
     <p>Junte os extratos, crie seus potinhos e descubra quanto sobra de verdade no fim do mês.</p>
     <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Abrir o Grão+</a>
@@ -359,6 +409,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 </section>
 </main>
 
-<footer><div class="wrap"><span><b style="color:#fff">Grão<span style="color:var(--grao)">+</span></b> · Finanças pessoais</span><span>De grão em grão, a gente enche a toca.</span></div></footer>
+<footer><div class="wrap"><span><b style="color:#fff">Grão<span style="color:var(--grao)">+</span></b> · Finanças pessoais</span><span>De grão em grão, a gente enche a toca. 🐿️ Com a Esquil.ia.</span></div></footer>
 </body>
 </html>
