@@ -1,3 +1,4 @@
+import DURACOES from "../public/duracoes.json";
 import { loadFont } from "@remotion/fonts";
 import { Video } from "@remotion/media";
 import {
@@ -22,7 +23,7 @@ const COR = { roxo: "#3D2385", grao: "#F2A541", aveia: "#F6F3EE", noite: "#0E082
 const ENTRADA = 18; // quadros antes do vídeo do app começar
 const FIM = 36; // quadros parados no fim
 
-type Props = { clipe: string; olho: string; titulo: string; texto: string };
+type Props = { clipe: string; olho: string; titulo: string; texto: string; escuro: boolean };
 
 const sobe = (frame: number, ini: number, dur = 20) => ({
   opacity: interpolate(frame, [ini, ini + dur], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
@@ -31,11 +32,11 @@ const sobe = (frame: number, ini: number, dur = 20) => ({
   }),
 });
 
-export const Demo: React.FC<Props> = ({ clipe, olho, titulo, texto: apoio }) => {
+export const Demo: React.FC<Props> = ({ clipe, olho, titulo, texto: apoio, escuro }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   return (
-    <AbsoluteFill style={{ backgroundColor: COR.roxo, fontFamily: texto, color: "white" }}>
+    <AbsoluteFill style={{ backgroundColor: escuro ? "#1C1235" : COR.roxo, fontFamily: texto, color: "white" }}>
 
       <div style={{ position: "absolute", left: 80, top: 110, width: 430, display: "flex", flexDirection: "column", gap: 28 }}>
         <div style={{ ...sobe(frame, 0), fontSize: 26, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: COR.grao }}>{olho}</div>
@@ -54,7 +55,7 @@ export const Demo: React.FC<Props> = ({ clipe, olho, titulo, texto: apoio }) => 
         translate: interpolate(frame, [0, 24], ["0px 140px", "0px 0px"], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) }),
         opacity: interpolate(frame, [0, 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
       }}>
-        <div style={{ width: "100%", height: "100%", borderRadius: 52, overflow: "hidden", background: COR.aveia, position: "relative" }}>
+        <div style={{ width: "100%", height: "100%", borderRadius: 52, overflow: "hidden", background: escuro ? "#110B1E" : COR.aveia, position: "relative" }}>
           <Sequence from={ENTRADA} durationInFrames={durationInFrames - ENTRADA} premountFor={30}>
             <Video src={staticFile(clipe)} muted style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
           </Sequence>
@@ -65,18 +66,30 @@ export const Demo: React.FC<Props> = ({ clipe, olho, titulo, texto: apoio }) => 
 };
 
 const VIDEOS = [
-  { id: "Inicio", clipe: "inicio.mp4", segundos: 7.23, olho: "Início", titulo: "Quanto sobrou no mês, num olhar.", texto: "Tocas, gastos por potinho e por banco e o histórico de 6 meses." },
-  { id: "Importar", clipe: "importar.mp4", segundos: 10.6, olho: "Importação", titulo: "Importe o extrato e confira.", texto: "OFX, CSV, PDF ou print. Você escolhe o potinho antes de gravar." },
-  { id: "Tocas", clipe: "tocas.mp4", segundos: 7.27, olho: "Tocas e potinhos", titulo: "Seu orçamento em dois níveis.", texto: "Cada potinho mostra quanto já foi e quanto ainda cabe." },
-  { id: "Cartoes", clipe: "cartoes.mp4", segundos: 6.57, olho: "Cartões de crédito", titulo: "Cada compra na fatura certa.", texto: "Fechamento, vencimento, pagamentos e limite de cada cartão." },
+  { id: "Inicio", clipe: "inicio.mp4", olho: "Início", titulo: "Quanto sobrou no mês, num olhar.", texto: "Tocas, gastos por potinho e por banco e o histórico de 6 meses." },
+  { id: "Importar", clipe: "importar.mp4", olho: "Importação", titulo: "Importe o extrato e confira.", texto: "OFX, CSV, PDF ou print. Você escolhe o potinho antes de gravar." },
+  { id: "Tocas", clipe: "tocas.mp4", olho: "Tocas e potinhos", titulo: "Seu orçamento em dois níveis.", texto: "Cada potinho mostra quanto já foi e quanto ainda cabe." },
+  { id: "Cartoes", clipe: "cartoes.mp4", olho: "Cartões de crédito", titulo: "Cada compra na fatura certa.", texto: "Fechamento, vencimento, pagamentos e limite de cada cartão." },
+];
+
+// Duração de cada gravação do app, medida com ffprobe (public/duracoes.json)
+const TEMAS = [
+  { sufixo: "", nome: "", escuro: false },
+  { sufixo: "-escuro", nome: "Escuro", escuro: true },
 ];
 
 export const MyComposition = () => (
   <>
-    {VIDEOS.map((v) => (
-      <Composition key={v.id} id={v.id} component={Demo} fps={30} width={1080} height={1350}
-        durationInFrames={ENTRADA + Math.ceil(v.segundos * 30) + FIM}
-        defaultProps={{ clipe: v.clipe, olho: v.olho, titulo: v.titulo, texto: v.texto }} />
-    ))}
+    {TEMAS.flatMap((t) =>
+      VIDEOS.map((v) => {
+        const clipe = v.clipe.replace(".mp4", `${t.sufixo}.mp4`);
+        const segundos = (DURACOES as Record<string, number>)[clipe];
+        return (
+          <Composition key={v.id + t.nome} id={v.id + t.nome} component={Demo} fps={30} width={1080} height={1350}
+            durationInFrames={ENTRADA + Math.ceil(segundos * 30) + FIM}
+            defaultProps={{ clipe, olho: v.olho, titulo: v.titulo, texto: v.texto, escuro: t.escuro }} />
+        );
+      }),
+    )}
   </>
 );

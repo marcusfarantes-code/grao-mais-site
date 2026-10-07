@@ -45,6 +45,12 @@ p{margin:0}
 .com-esq .esq{width:132px;height:132px}
 @media (max-width:520px){.com-esq .esq{width:96px;height:96px;border-radius:22px}}
 
+/* troca de tema */
+.tema-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:1.1rem;cursor:pointer}
+.tema-seg{display:inline-flex;gap:4px;padding:4px;border-radius:99px;background:var(--card);border:1px solid var(--linha);justify-self:start}
+.tema-seg button{border:0;background:transparent;color:var(--fg);font:700 .95rem var(--texto);padding:10px 18px;border-radius:99px;cursor:pointer}
+.tema-seg button[aria-pressed="true"]{background:var(--marca);color:var(--bg)}
+
 /* topo */
 .topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--roxo) 92%,transparent);backdrop-filter:blur(10px);color:#fff}
 .topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
@@ -66,27 +72,11 @@ p{margin:0}
 .heroi .nota{margin-top:18px;font-size:.85rem;opacity:.7}
 @media (max-width:860px){.heroi .wrap{grid-template-columns:1fr;padding-block:48px 64px}}
 
-/* celular */
-.cel{justify-self:center;width:min(320px,100%);background:#0E0820;border-radius:42px;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);position:relative;z-index:1;animation:sobe .9s cubic-bezier(.2,.8,.2,1) both}
+/* celular: moldura em volta das telas reais do app */
+.cel{justify-self:center;margin:0;width:min(320px,100%);background:#0E0820;border-radius:42px;padding:10px;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:sobe .9s cubic-bezier(.2,.8,.2,1) both}
+.cel img{display:block;width:100%;height:auto;border-radius:33px}
+.cel-sec{width:min(300px,100%)}
 @keyframes sobe{from{transform:translateY(30px)}to{transform:none}}
-.tela{background:#F6F3EE;color:#1C1235;border-radius:32px;padding:20px 16px 18px;font-size:13px;display:grid;gap:12px}
-.tela .cab{display:flex;justify-content:space-between;align-items:center;font-weight:700}
-.tela .cab small{font-weight:600;color:#6B6280}
-.saldo{background:#3D2385;color:#fff;border-radius:20px;padding:16px}
-.saldo small{opacity:.75;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
-.saldo strong{display:block;font-family:var(--display);font-size:30px;font-weight:800;margin:2px 0 8px;font-variant-numeric:tabular-nums}
-.barra{height:8px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}
-.barra i{display:block;height:100%;background:#F2A541;border-radius:99px}
-.saldo .leg{display:flex;justify-content:space-between;font-size:11px;opacity:.8;margin-top:6px}
-.mini{background:#fff;border-radius:16px;padding:12px 14px;display:grid;gap:10px;box-shadow:0 2px 8px rgba(28,18,53,.06)}
-.toca{display:grid;grid-template-columns:1fr auto;gap:4px 8px;align-items:center;font-variant-numeric:tabular-nums}
-.toca span{font-weight:700}.toca em{font-style:normal;color:#6B6280;font-size:12px}
-.toca .barra{grid-column:1/-1;height:6px;background:#EEE8F7}.toca .barra i{background:#3D2385}
-.toca .barra i.alto{background:#C2453D}
-.lanc{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
-.lanc b{font-weight:600}.lanc .neg{color:#C2453D}.lanc .pos{color:#2E8B57}
-.lanc small{display:block;color:#6B6280;font-size:11px}
-.fab{justify-self:end;width:48px;height:48px;border-radius:16px;background:#F2A541;display:grid;place-items:center;font:800 26px/1 var(--display);color:#1C1235;margin-top:-4px}
 
 /* seções */
 section{padding-block:88px}
@@ -106,13 +96,6 @@ section{padding-block:88px}
 .esqgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 @media (max-width:860px){.esqgrid{grid-template-columns:1fr;gap:36px}}
 .esq-palco{position:relative;display:grid;gap:16px;justify-items:start}
-.esq-grande{width:200px;height:200px}
-.chat-mock{display:grid;gap:10px;width:100%;max-width:440px;background:var(--bg);border:1px solid var(--linha);border-radius:24px;padding:18px}
-.msg{margin:0;padding:10px 14px;border-radius:16px;font-size:.95rem;max-width:88%;color:var(--fg)}
-.msg.ela{background:var(--card);border:1px solid var(--linha);border-bottom-left-radius:4px;justify-self:start}
-.msg.eu{background:var(--roxo);color:#fff;border-bottom-right-radius:4px;justify-self:end}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips span{padding:6px 12px;border-radius:99px;border:1.5px solid var(--marca);color:var(--marca);font-weight:700;font-size:.85rem}
 .lista-esq{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:12px;color:var(--mudo)}
 .lista-esq b{color:var(--fg)}
 .lista-esq li{padding-left:22px;position:relative}
@@ -121,12 +104,6 @@ section{padding-block:88px}
 /* tocas */
 .tocas{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 @media (max-width:860px){.tocas{grid-template-columns:1fr}}
-.arvore{background:var(--bg);border:1px solid var(--linha);border-radius:24px;padding:24px;display:grid;gap:18px;font-variant-numeric:tabular-nums}
-.arvore .t{display:flex;justify-content:space-between;font-family:var(--display);font-weight:600;font-size:1.15rem}
-.arvore ul{list-style:none;margin:8px 0 0;padding:0 0 0 18px;border-left:2px dashed var(--linha);display:grid;gap:6px;color:var(--mudo)}
-.arvore li{display:flex;justify-content:space-between;gap:12px}
-.arvore li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--grao);margin:9px 0 0 -23px;flex:none}
-.arvore li span{flex:1}
 .passos{display:grid;gap:22px}
 .passo{display:grid;grid-template-columns:44px 1fr;gap:16px}
 .passo .n{width:44px;height:44px;border-radius:12px;background:var(--marca);color:var(--bg);display:grid;place-items:center;font:800 1.1rem var(--display)}
@@ -194,7 +171,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="Grão+ início"><img class="selo" src="marca/bolota.jpg" width="38" height="38" alt=""><b>Grão<i>+</i></b></a>
     <nav aria-label="Seções"><a href="#video">Vídeos</a><a href="#esquilia">Esquil.ia</a><a href="#tocas">Tocas</a><a href="#recursos">Recursos</a><a href="#plano">Plano</a><a href="#duvidas">Dúvidas</a></nav>
-    <a class="btn btn-grao" style="padding:10px 16px" href="https://grao-mais.marantes.workers.dev">Entrar</a>
+    <div style="display:flex;gap:10px;align-items:center"><button type="button" class="tema-btn" id="temaBtn" aria-label="Trocar entre modo claro e escuro">🌙</button><a class="btn btn-grao" style="padding:10px 16px" href="https://grao-mais.marantes.workers.dev">Entrar</a></div>
   </div>
 </header>
 
@@ -212,27 +189,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
       <p class="nota">Funciona no navegador e instala na tela inicial do celular, sem loja de aplicativos.</p>
     </div>
 
-    <div class="cel" role="img" aria-label="Tela inicial do Grão+ com exemplo de saldo do mês, tocas e últimos lançamentos">
-      <div class="tela">
-        <div class="cab"><span>Outubro</span><small>Exemplo</small></div>
-        <div class="saldo">
-          <small>Sobrou no mês</small>
-          <strong>R$ 1.284,50</strong>
-          <div class="barra"><i style="width:72%"></i></div>
-          <div class="leg"><span>Gasto R$ 4.615,50</span><span>72% do orçamento</span></div>
-        </div>
-        <div class="mini">
-          <div class="toca"><span>Casa</span><em>R$ 2.140 / 2.400</em><div class="barra"><i style="width:89%"></i></div></div>
-          <div class="toca"><span>Comida</span><em>R$ 1.320 / 1.200</em><div class="barra"><i class="alto" style="width:100%"></i></div></div>
-          <div class="toca"><span>Lazer</span><em>R$ 310 / 600</em><div class="barra"><i style="width:52%"></i></div></div>
-        </div>
-        <div class="mini">
-          <div class="lanc"><div><b>Mercado do bairro</b><small>Nubank · Feira</small></div><b class="neg">−R$ 186,40</b></div>
-          <div class="lanc"><div><b>Salário</b><small>Caixa · Renda</small></div><b class="pos">+R$ 5.900,00</b></div>
-        </div>
-        <div class="fab" aria-hidden="true">+</div>
-      </div>
-    </div>
+    <figure class="cel"><img src="telas/inicio.jpg" data-escuro="telas/inicio-escuro.jpg" data-claro="telas/inicio.jpg" width="390" height="844" alt="Tela de início do Grão+ com o guardado no mês e as tocas do orçamento"></figure>
   </div>
 </section>
 
@@ -241,13 +198,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
     <div class="cabeca">
       <p class="olho">Veja funcionando</p>
       <h2>O Grão+ de verdade, na tela do celular.</h2>
-      <p>Gravado no próprio app, com dados de exemplo.</p>
+      <p>Gravado no próprio app, com dados de exemplo. Troque entre claro e escuro para ver os dois jeitos.</p>
+      <div class="tema-seg" role="group" aria-label="Modo das telas"><button type="button" data-tema="light">☀️ Claro</button><button type="button" data-tema="dark">🌙 Escuro</button></div>
     </div>
     <div class="videos">
-      <figure><video src="videos/inicio.mp4" poster="videos/inicio.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Tela de início do Grão+ rolando"></video><figcaption>Início: quanto sobrou no mês</figcaption></figure>
-      <figure><video src="videos/importar.mp4" poster="videos/importar.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Importando um extrato CSV no Grão+"></video><figcaption>Importar extrato e conferir</figcaption></figure>
-      <figure><video src="videos/tocas.mp4" poster="videos/tocas.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Tocas e potinhos do orçamento"></video><figcaption>Tocas e potinhos</figcaption></figure>
-      <figure><video src="videos/cartoes.mp4" poster="videos/cartoes.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Faturas dos cartões de crédito"></video><figcaption>Cartões e faturas</figcaption></figure>
+      <figure><video src="videos/inicio.mp4" poster="videos/inicio.jpg" data-claro="videos/inicio.mp4" data-escuro="videos/inicio-escuro.mp4" data-poster-claro="videos/inicio.jpg" data-poster-escuro="videos/inicio-escuro.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Tela de início do Grão+ rolando"></video><figcaption>Início: quanto sobrou no mês</figcaption></figure>
+      <figure><video src="videos/importar.mp4" poster="videos/importar.jpg" data-claro="videos/importar.mp4" data-escuro="videos/importar-escuro.mp4" data-poster-claro="videos/importar.jpg" data-poster-escuro="videos/importar-escuro.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Importando um extrato CSV no Grão+"></video><figcaption>Importar extrato e conferir</figcaption></figure>
+      <figure><video src="videos/tocas.mp4" poster="videos/tocas.jpg" data-claro="videos/tocas.mp4" data-escuro="videos/tocas-escuro.mp4" data-poster-claro="videos/tocas.jpg" data-poster-escuro="videos/tocas-escuro.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Tocas e potinhos do orçamento"></video><figcaption>Tocas e potinhos</figcaption></figure>
+      <figure><video src="videos/cartoes.mp4" poster="videos/cartoes.jpg" data-claro="videos/cartoes.mp4" data-escuro="videos/cartoes-escuro.mp4" data-poster-claro="videos/cartoes.jpg" data-poster-escuro="videos/cartoes-escuro.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Faturas dos cartões de crédito"></video><figcaption>Cartões e faturas</figcaption></figure>
     </div>
   </div>
 </section>
@@ -255,14 +213,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <section id="esquilia" class="claro">
   <div class="wrap esqgrid">
     <div class="esq-palco">
-      <img class="esq esq-grande" src="mascote/mascote-acenando.jpg" width="200" height="200" alt="Esquil.ia, a esquilinha do Grão+, acenando">
-      <div class="chat-mock" aria-label="Exemplo de conversa com a Esquil.ia">
-        <p class="msg ela">Oi! Sou a Esquil.ia 🐿️ Me conta o que você gastou. Pode mandar áudio ou escrever!</p>
-        <p class="msg eu">🎙️ “Gastei 52 reais no iFood ontem”</p>
-        <p class="msg ela">Anotado! Saiu de qual conta?</p>
-        <div class="chips"><span>Nubank cartão</span><span>Itaú conta</span><span>Dinheiro</span></div>
-        <p class="msg ela">Fechou: <b>R$ 52,00 · iFood · ontem · Nubank cartão · Alimentação fora</b>. Posso guardar?</p>
-      </div>
+            <figure class="cel cel-sec"><img src="telas/esquilia.jpg" data-escuro="telas/esquilia-escuro.jpg" data-claro="telas/esquilia.jpg" width="390" height="844" alt="Conversa com a Esquil.ia no Grão+ perguntando como a pessoa pagou"></figure>
     </div>
     <div class="cabeca" style="margin:0">
       <p class="olho">Conheça a Esquil.ia</p>
@@ -293,14 +244,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
         <div class="passo"><span class="n">3</span><div><h3>Veja quanto sobrou</h3><p>O início mostra o saldo do mês e o uso de cada toca em porcentagem.</p></div></div>
       </div>
     </div>
-    <div class="arvore" aria-label="Exemplo de tocas e potinhos">
-      <div><div class="t"><span>🏠 Casa</span><span>R$ 2.400</span></div>
-        <ul><li><span>Aluguel</span>R$ 1.600</li><li><span>Luz e água</span>R$ 380</li><li><span>Internet</span>R$ 120</li><li><span>Manutenção</span>R$ 300</li></ul></div>
-      <div><div class="t"><span>🍞 Comida</span><span>R$ 1.200</span></div>
-        <ul><li><span>Feira</span>R$ 850</li><li><span>Delivery</span>R$ 200</li><li><span>Padaria</span>R$ 150</li></ul></div>
-      <div><div class="t"><span>🎈 Lazer</span><span>R$ 600</span></div>
-        <ul><li><span>Passeios</span>R$ 350</li><li><span>Assinaturas</span>R$ 250</li></ul></div>
-    </div>
+    <figure class="cel cel-sec"><img src="telas/tocas.jpg" data-escuro="telas/tocas-escuro.jpg" data-claro="telas/tocas.jpg" width="390" height="844" alt="Tela de tocas do Grão+ com os potinhos e quanto já foi de cada um"></figure>
   </div>
 </section>
 
@@ -410,5 +354,24 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 </main>
 
 <footer><div class="wrap"><span><b style="color:#fff">Grão<span style="color:var(--grao)">+</span></b> · Finanças pessoais</span><span>De grão em grão, a gente enche a toca. 🐿️ Com a Esquil.ia.</span></div></footer>
+<script>
+// Modo claro/escuro: o site e as telas do app mudam juntos. Começa pelo tema do aparelho.
+(function(){
+  const raiz=document.documentElement, mq=matchMedia("(prefers-color-scheme: dark)");
+  let salvo=null; try{salvo=localStorage.getItem("grao_site_tema")}catch(e){}
+  const atual=()=>raiz.dataset.theme||(mq.matches?"dark":"light");
+  function aplica(t,guarda){
+    raiz.dataset.theme=t; const esc=t==="dark";
+    document.querySelectorAll("img[data-escuro]").forEach(i=>{i.src=esc?i.dataset.escuro:i.dataset.claro});
+    document.querySelectorAll("video[data-escuro]").forEach(v=>{const s=esc?v.dataset.escuro:v.dataset.claro;if(v.getAttribute("src")!==s){v.poster=esc?v.dataset.posterEscuro:v.dataset.posterClaro;v.src=s;v.play().catch(()=>{})}});
+    document.querySelectorAll("[data-tema]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tema===t)));
+    const b=document.getElementById("temaBtn"); b.textContent=esc?"☀️":"🌙"; b.setAttribute("aria-label",esc?"Ver no modo claro":"Ver no modo escuro");
+    if(guarda) try{localStorage.setItem("grao_site_tema",t)}catch(e){}
+  }
+  aplica(salvo||atual(),false);
+  document.getElementById("temaBtn").onclick=()=>aplica(atual()==="dark"?"light":"dark",true);
+  document.querySelectorAll("[data-tema]").forEach(b=>b.onclick=()=>aplica(b.dataset.tema,true));
+})();
+</script>
 </body>
 </html>
