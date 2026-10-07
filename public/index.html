@@ -38,12 +38,12 @@ p{margin:0}
 .btn:hover{transform:translateY(-2px)}
 .btn-grao{background:var(--grao);color:#1C1235}
 .btn-linha{border:1.5px solid rgba(255,255,255,.4);color:#fff}
-/* Esquil.ia: as ilustrações têm fundo aveia, então entram como "fotos" redondas */
-.esq{display:block;border-radius:28px;background:#E9DCCB;object-fit:cover}
+/* Esquil.ia: as cenas têm fundo transparente e ficam soltas sobre a página */
+.esq{display:block;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(28,18,53,.18))}
 .balao{position:relative;background:var(--card);border:1px solid var(--linha);border-radius:18px 18px 18px 4px;padding:12px 16px;font-weight:600;max-width:24em}
 .com-esq{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
-.com-esq .esq{width:132px;height:132px}
-@media (max-width:520px){.com-esq .esq{width:96px;height:96px;border-radius:22px}}
+.com-esq .esq{width:140px;height:140px}
+@media (max-width:520px){.com-esq .esq{width:100px;height:100px}}
 
 /* troca de tema */
 .tema-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:1.1rem;cursor:pointer}
@@ -169,7 +169,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <header class="topo">
   <div class="wrap">
-    <a class="logo" href="#inicio" aria-label="Grão+ início"><img class="selo" src="marca/bolota.jpg" width="38" height="38" alt=""><b>Grão<i>+</i></b></a>
+    <a class="logo" href="#inicio" aria-label="Grão+ início"><img class="selo" src="marca/bolota.png" width="38" height="38" alt=""><b>Grão<i>+</i></b></a>
     <nav aria-label="Seções"><a href="#video">Vídeos</a><a href="#esquilia">Esquil.ia</a><a href="#tocas">Tocas</a><a href="#recursos">Recursos</a><a href="#plano">Plano</a><a href="#duvidas">Dúvidas</a></nav>
     <div style="display:flex;gap:10px;align-items:center"><button type="button" class="tema-btn" id="temaBtn" aria-label="Trocar entre modo claro e escuro">🌙</button><a class="btn btn-grao" style="padding:10px 16px" href="https://grao-mais.marantes.workers.dev">Entrar</a></div>
   </div>
@@ -233,7 +233,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   <div class="wrap tocas">
     <div>
       <div class="cabeca" style="margin-bottom:32px">
-        <img class="esq" src="mascote/mascote-guardando.jpg" width="120" height="120" alt="Esquil.ia guardando bolotas num potinho" style="width:120px;height:120px">
+        <img class="esq" src="mascote/mascote-guardando.webp" width="120" height="120" alt="Esquil.ia guardando bolotas num potinho" style="width:120px;height:120px">
         <p class="olho">Orçamento em dois níveis</p>
         <h2>Tocas guardam potinhos. Potinhos guardam grãos.</h2>
         <p>Cada gasto cai num potinho. Você define quanto cabe em cada potinho, e a toca soma tudo. Assim dá para ver de longe onde o dinheiro foi e, de perto, o que passou do ponto.</p>
@@ -272,7 +272,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <section id="importar" class="claro">
   <div class="wrap">
     <div class="cabeca">
-      <div class="com-esq"><img class="esq" src="mascote/mascote-lendo.jpg" width="132" height="132" alt="Esquil.ia lendo um papelzinho"><div style="display:grid;gap:14px"><p class="olho">Importação</p>
+      <div class="com-esq"><img class="esq" src="mascote/mascote-lendo.webp" width="132" height="132" alt="Esquil.ia lendo um papelzinho"><div style="display:grid;gap:14px"><p class="olho">Importação</p>
       <h2>Chega de digitar gasto por gasto.</h2></div></div>
       <p>Arquivos simples são lidos no próprio navegador. PDFs, prints e textos colados são lidos por inteligência artificial e passam pela sua conferência antes de entrar.</p>
     </div>
@@ -288,7 +288,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <section>
   <div class="wrap">
-    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-toca.jpg" width="132" height="132" alt="Esquil.ia entrando na toca"><div style="display:grid;gap:14px"><p class="olho">Seus dados</p><h2>Cada família na sua própria toca.</h2></div></div>
+    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-toca.webp" width="132" height="132" alt="Esquil.ia entrando na toca"><div style="display:grid;gap:14px"><p class="olho">Seus dados</p><h2>Cada família na sua própria toca.</h2></div></div>
     <div class="seg">
       <div><h3>Banco de dados só seu</h3><p>Cada cliente tem um banco separado, isolado dos demais. Nada se mistura.</p></div>
       <div><h3>Senha bem guardada</h3><p>Senhas protegidas com PBKDF2. Todo acesso novo começa com senha provisória, trocada no primeiro login.</p></div>
@@ -300,7 +300,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 <section id="plano" class="claro" style="background:var(--bg)">
   <div class="wrap">
     <div class="cabeca">
-      <div class="com-esq"><img class="esq" src="mascote/mascote-comemorando.jpg" width="132" height="132" alt="Esquil.ia comemorando num monte de bolotas"><div style="display:grid;gap:14px"><p class="olho">Planos</p>
+      <div class="com-esq"><img class="esq" src="mascote/mascote-comemorando.webp" width="132" height="132" alt="Esquil.ia comemorando num monte de bolotas"><div style="display:grid;gap:14px"><p class="olho">Planos</p>
       <h2>Dois planos, os mesmos recursos.</h2></div></div>
       <p>A cobrança é recorrente no cartão de crédito: sai uma mensalidade por mês e o valor do ano não fica preso no seu limite.</p>
     </div>
@@ -331,7 +331,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <section id="duvidas">
   <div class="wrap">
-    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-tonto.jpg" width="132" height="132" alt="Esquil.ia caída e tonta, com os óculos voando"><div style="display:grid;gap:14px"><p class="olho">Dúvidas</p><h2>Perguntas frequentes</h2></div></div>
+    <div class="cabeca com-esq"><img class="esq" src="mascote/mascote-tonto.webp" width="132" height="132" alt="Esquil.ia caída e tonta, com os óculos voando"><div style="display:grid;gap:14px"><p class="olho">Dúvidas</p><h2>Perguntas frequentes</h2></div></div>
     <div class="faq">
       <details><summary>Preciso baixar na loja de aplicativos?</summary><p>Não. O Grão+ abre no navegador e pode ser instalado na tela inicial do Android ou do iPhone, como qualquer app.</p></details>
       <details><summary>O Grão+ se conecta ao meu banco?</summary><p>Não. Você exporta o extrato ou a fatura do banco e importa no Grão+. Assim ninguém precisa da sua senha do banco.</p></details>
@@ -345,7 +345,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 
 <section class="fecho">
   <div class="wrap">
-    <img class="esq" src="mascote/mascote-pegando.jpg" width="160" height="160" alt="Esquil.ia pulando para pegar uma bolota no ar" style="width:160px;height:160px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.15)">
+    <img class="esq" src="mascote/mascote-pegando.webp" width="160" height="160" alt="Esquil.ia pulando para pegar uma bolota no ar" style="width:180px;height:180px">
     <h2>Comece a encher a sua toca.</h2>
     <p>Junte os extratos, crie seus potinhos e descubra quanto sobra de verdade no fim do mês.</p>
     <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Abrir o Grão+</a>
