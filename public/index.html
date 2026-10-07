@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grão+ Finanças Pessoais</title>
+<meta name="description" content="Grão+: importe faturas e extratos, organize o orçamento em tocas e potinhos e acompanhe investimentos, dívidas e cartões. De grão em grão, a gente enche a toca.">
+<meta name="theme-color" content="#3D2385">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: herói com o celular, faixas alternadas em aveia/branco, roxo só no herói e no fecho */
+:root{
+  --roxo:#3D2385; --roxo-2:#5B3FB0; --grao:#F2A541; --aveia:#F6F3EE; --noite:#1C1235;
+  --card:#FFFFFF; --mudo:#6B6280; --linha:#E6E0D6; --bg:var(--aveia); --fg:var(--noite); --marca:var(--roxo);
+  --verde:#2E8B57; --vermelho:#C2453D;
+  --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
+  --texto:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#110B1E; --fg:#EEE9F7; --card:#1C1430; --mudo:#A79EBD; --linha:#2E2447; --marca:#B9A6F2; --verde:#5CC48A; --vermelho:#EE7A70; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#110B1E; --fg:#EEE9F7; --card:#1C1430; --mudo:#A79EBD; --linha:#2E2447; --marca:#B9A6F2; --verde:#5CC48A; --vermelho:#EE7A70; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--texto)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--grao);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+.olho{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grao)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:12px;font-weight:700;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-grao{background:var(--grao);color:#1C1235}
+.btn-linha{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+svg.esq{color:currentColor}
+
+/* topo */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--roxo) 92%,transparent);backdrop-filter:blur(10px);color:#fff}
+.topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo .selo{width:38px;height:38px;border-radius:10px;background:var(--roxo);display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)}
+.logo .selo svg{width:28px;height:25px;color:#fff}
+.logo b{font-family:var(--display);font-weight:800;font-size:1.35rem}
+.logo b i{font-style:normal;color:var(--grao)}
+.topo nav{display:flex;gap:22px;font-weight:600;font-size:.95rem}
+.topo nav a{text-decoration:none;opacity:.85}.topo nav a:hover{opacity:1}
+@media (max-width:760px){.topo nav{display:none}}
+
+/* herói */
+.heroi{background:var(--roxo);color:#fff;overflow:hidden;position:relative}
+.heroi .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:64px 80px}
+.heroi h1{font-size:clamp(2.6rem,6.5vw,4.6rem);font-weight:800;letter-spacing:-.03em}
+.heroi h1 em{font-style:normal;color:var(--grao)}
+.heroi .lead{font-size:1.15rem;opacity:.88;max-width:34em;margin-top:20px}
+.heroi .acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.heroi .nota{margin-top:18px;font-size:.85rem;opacity:.7}
+.heroi .fundo{position:absolute;right:-120px;bottom:-60px;width:520px;opacity:.06;color:#fff;pointer-events:none}
+@media (max-width:860px){.heroi .wrap{grid-template-columns:1fr;padding-block:48px 64px}}
+
+/* celular */
+.cel{justify-self:center;width:min(320px,100%);background:#0E0820;border-radius:42px;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);position:relative;z-index:1;animation:sobe .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sobe{from{transform:translateY(30px)}to{transform:none}}
+.tela{background:#F6F3EE;color:#1C1235;border-radius:32px;padding:20px 16px 18px;font-size:13px;display:grid;gap:12px}
+.tela .cab{display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.tela .cab small{font-weight:600;color:#6B6280}
+.saldo{background:#3D2385;color:#fff;border-radius:20px;padding:16px}
+.saldo small{opacity:.75;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.saldo strong{display:block;font-family:var(--display);font-size:30px;font-weight:800;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.barra{height:8px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}
+.barra i{display:block;height:100%;background:#F2A541;border-radius:99px}
+.saldo .leg{display:flex;justify-content:space-between;font-size:11px;opacity:.8;margin-top:6px}
+.mini{background:#fff;border-radius:16px;padding:12px 14px;display:grid;gap:10px;box-shadow:0 2px 8px rgba(28,18,53,.06)}
+.toca{display:grid;grid-template-columns:1fr auto;gap:4px 8px;align-items:center;font-variant-numeric:tabular-nums}
+.toca span{font-weight:700}.toca em{font-style:normal;color:#6B6280;font-size:12px}
+.toca .barra{grid-column:1/-1;height:6px;background:#EEE8F7}.toca .barra i{background:#3D2385}
+.toca .barra i.alto{background:#C2453D}
+.lanc{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.lanc b{font-weight:600}.lanc .neg{color:#C2453D}.lanc .pos{color:#2E8B57}
+.lanc small{display:block;color:#6B6280;font-size:11px}
+.fab{justify-self:end;width:48px;height:48px;border-radius:16px;background:#F2A541;display:grid;place-items:center;font:800 26px/1 var(--display);color:#1C1235;margin-top:-4px}
+
+/* seções */
+section{padding-block:88px}
+.cabeca{display:grid;gap:14px;max-width:44em;margin-bottom:48px}
+.cabeca p{color:var(--mudo);font-size:1.08rem}
+.claro{background:var(--card)}
+
+/* tocas */
+.tocas{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.tocas{grid-template-columns:1fr}}
+.arvore{background:var(--bg);border:1px solid var(--linha);border-radius:24px;padding:24px;display:grid;gap:18px;font-variant-numeric:tabular-nums}
+.arvore .t{display:flex;justify-content:space-between;font-family:var(--display);font-weight:600;font-size:1.15rem}
+.arvore ul{list-style:none;margin:8px 0 0;padding:0 0 0 18px;border-left:2px dashed var(--linha);display:grid;gap:6px;color:var(--mudo)}
+.arvore li{display:flex;justify-content:space-between;gap:12px}
+.arvore li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--grao);margin:9px 0 0 -23px;flex:none}
+.arvore li span{flex:1}
+.passos{display:grid;gap:22px}
+.passo{display:grid;grid-template-columns:44px 1fr;gap:16px}
+.passo .n{width:44px;height:44px;border-radius:12px;background:var(--marca);color:var(--bg);display:grid;place-items:center;font:800 1.1rem var(--display)}
+.passo p{color:var(--mudo);margin-top:4px}
+
+/* recursos */
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.grade{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grade{grid-template-columns:1fr}}
+.rec{background:var(--card);border:1px solid var(--linha);border-radius:20px;padding:24px;display:grid;gap:10px;align-content:start}
+.rec .ic{width:42px;height:42px;border-radius:12px;background:color-mix(in srgb,var(--grao) 22%,transparent);color:var(--marca);display:grid;place-items:center}
+.rec .ic svg{width:22px;height:22px}
+.rec p{color:var(--mudo);font-size:.95rem}
+
+/* importação */
+.imp{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:860px){.imp{grid-template-columns:1fr 1fr}}
+.fmt{border-top:3px solid var(--grao);padding-top:14px;display:grid;gap:6px}
+.fmt b{font-family:var(--display);font-size:1.4rem}
+.fmt p{color:var(--mudo);font-size:.93rem}
+.bancos{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;align-items:center}
+.bancos span{padding:8px 16px;border-radius:99px;border:1px solid var(--linha);background:var(--bg);font-weight:600;font-size:.92rem}
+.bancos small{color:var(--mudo);margin-right:6px}
+
+/* segurança */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media (max-width:860px){.seg{grid-template-columns:1fr}}
+.seg div{display:grid;gap:8px}.seg p{color:var(--mudo)}
+.seg h3::before{content:"";display:block;width:28px;height:4px;border-radius:2px;background:var(--grao);margin-bottom:14px}
+
+/* planos */
+.planos{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px}
+@media (max-width:680px){.planos{grid-template-columns:1fr}}
+.plano{background:var(--card);border:1px solid var(--linha);border-radius:24px;padding:32px 28px;display:grid;gap:10px;align-content:start;position:relative}
+.plano.destaque{border:2px solid var(--grao)}
+.selo-plano{position:absolute;top:-13px;left:24px;background:var(--grao);color:#1C1235;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.plano .preco{font-family:var(--display);font-size:clamp(2.2rem,5vw,3rem);font-weight:800;color:var(--marca);font-variant-numeric:tabular-nums}
+.plano .preco small{font-size:1rem;color:var(--mudo);font-weight:600}
+.plano .sub{color:var(--mudo);min-height:3.2em}
+.plano .btn{justify-content:center;margin-top:8px}
+.btn-roxo{background:var(--marca);color:var(--bg)}
+.inclui{list-style:none;padding:0;margin:36px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 28px;max-width:860px}
+.inclui li{display:flex;gap:12px}
+.inclui li::before{content:"✓";color:var(--verde);font-weight:800}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:820px}
+details{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:18px 22px}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--grao);font:800 1.4rem/1 var(--display);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mudo);margin-top:10px}
+
+/* fecho */
+.fecho{background:var(--roxo);color:#fff;text-align:center}
+.fecho .wrap{display:grid;justify-items:center;gap:20px}
+.fecho svg{width:90px;height:80px;color:#fff}
+.fecho p{opacity:.85;max-width:32em}
+footer{background:#110B1E;color:#A79EBD;font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="esq" viewBox="88 108 396 352"><path d="M296 452 C408 452 472 382 472 296 C472 198 404 128 324 122 C280 119 246 138 232 168 C262 164 294 172 318 192 C354 222 382 262 382 310 C382 368 346 406 300 416 C306 432 304 446 296 452 Z" fill="currentColor"/><path fill-rule="evenodd" d="M156 452 C146 410 150 352 176 316 C196 290 222 280 250 284 C292 290 312 338 308 392 C306 422 298 442 288 452 Z M174 362 C174 330 196 318 216 318 L217 304 L229 304 L228 318 C248 320 266 332 266 362 L261 368 C261 404 244 432 220 439 C196 432 179 404 179 368 Z" fill="currentColor"/><path fill-rule="evenodd" d="M268 238 C268 276 236 300 200 300 C176 300 156 290 138 276 L114 260 C98 250 98 234 112 228 L140 214 C150 186 172 170 202 170 C238 170 268 200 268 238 Z M182 234 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0 Z" fill="currentColor"/><path d="M188 182 L206 132 C210 120 228 120 232 132 L252 196 Z" fill="currentColor"/><path d="M182 360 C182 336 200 326 220 326 C240 326 258 336 258 360 Z" fill="var(--grao,#F2A541)"/><path d="M187 370 L253 370 C253 402 238 424 220 430 C202 424 187 402 187 370 Z" fill="var(--grao,#F2A541)"/><path d="M216 328 L218 312 L226 312 L224 328 Z" fill="var(--grao,#F2A541)"/></symbol></defs></svg>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Grão+ início"><span class="selo"><svg class="esq" viewBox="88 108 396 352"><use href="#esq"/></svg></span><b>Grão<i>+</i></b></a>
+    <nav aria-label="Seções"><a href="#tocas">Tocas</a><a href="#recursos">Recursos</a><a href="#importar">Importação</a><a href="#plano">Plano</a><a href="#duvidas">Dúvidas</a></nav>
+    <a class="btn btn-grao" style="padding:10px 16px" href="https://grao-mais.marantes.workers.dev">Entrar</a>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="heroi">
+  <svg class="fundo esq" viewBox="88 108 396 352" aria-hidden="true"><use href="#esq"/></svg>
+  <div class="wrap">
+    <div>
+      <p class="olho">Finanças pessoais</p>
+      <h1 style="margin-top:14px">De grão em grão, a gente <em>enche a toca.</em></h1>
+      <p class="lead">O Grão+ lê suas faturas e extratos, separa cada gasto no potinho certo e mostra quanto sobrou no mês. Investimentos, dívidas e cartões de crédito ficam no mesmo lugar, no seu celular.</p>
+      <div class="acoes">
+        <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Abrir o Grão+</a>
+        <a class="btn btn-linha" href="#tocas">Como funciona</a>
+      </div>
+      <p class="nota">Funciona no navegador e instala na tela inicial do celular, sem loja de aplicativos.</p>
+    </div>
+
+    <div class="cel" role="img" aria-label="Tela inicial do Grão+ com exemplo de saldo do mês, tocas e últimos lançamentos">
+      <div class="tela">
+        <div class="cab"><span>Outubro</span><small>Exemplo</small></div>
+        <div class="saldo">
+          <small>Sobrou no mês</small>
+          <strong>R$ 1.284,50</strong>
+          <div class="barra"><i style="width:72%"></i></div>
+          <div class="leg"><span>Gasto R$ 4.615,50</span><span>72% do orçamento</span></div>
+        </div>
+        <div class="mini">
+          <div class="toca"><span>Casa</span><em>R$ 2.140 / 2.400</em><div class="barra"><i style="width:89%"></i></div></div>
+          <div class="toca"><span>Comida</span><em>R$ 1.320 / 1.200</em><div class="barra"><i class="alto" style="width:100%"></i></div></div>
+          <div class="toca"><span>Lazer</span><em>R$ 310 / 600</em><div class="barra"><i style="width:52%"></i></div></div>
+        </div>
+        <div class="mini">
+          <div class="lanc"><div><b>Mercado do bairro</b><small>Nubank · Feira</small></div><b class="neg">−R$ 186,40</b></div>
+          <div class="lanc"><div><b>Salário</b><small>Caixa · Renda</small></div><b class="pos">+R$ 5.900,00</b></div>
+        </div>
+        <div class="fab" aria-hidden="true">+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tocas" class="claro">
+  <div class="wrap tocas">
+    <div>
+      <div class="cabeca" style="margin-bottom:32px">
+        <p class="olho">Orçamento em dois níveis</p>
+        <h2>Tocas guardam potinhos. Potinhos guardam grãos.</h2>
+        <p>Cada gasto cai num potinho. Você define quanto cabe em cada potinho, e a toca soma tudo. Assim dá para ver de longe onde o dinheiro foi e, de perto, o que passou do ponto.</p>
+      </div>
+      <div class="passos">
+        <div class="passo"><span class="n">1</span><div><h3>Importe o extrato</h3><p>Traga o OFX, o CSV, o PDF da fatura ou até um print da tela do banco.</p></div></div>
+        <div class="passo"><span class="n">2</span><div><h3>Confira antes de gravar</h3><p>Itens repetidos e pagamentos de fatura já vêm desmarcados, para nada contar duas vezes.</p></div></div>
+        <div class="passo"><span class="n">3</span><div><h3>Veja quanto sobrou</h3><p>O início mostra o saldo do mês e o uso de cada toca em porcentagem.</p></div></div>
+      </div>
+    </div>
+    <div class="arvore" aria-label="Exemplo de tocas e potinhos">
+      <div><div class="t"><span>🏠 Casa</span><span>R$ 2.400</span></div>
+        <ul><li><span>Aluguel</span>R$ 1.600</li><li><span>Luz e água</span>R$ 380</li><li><span>Internet</span>R$ 120</li><li><span>Manutenção</span>R$ 300</li></ul></div>
+      <div><div class="t"><span>🍞 Comida</span><span>R$ 1.200</span></div>
+        <ul><li><span>Feira</span>R$ 850</li><li><span>Delivery</span>R$ 200</li><li><span>Padaria</span>R$ 150</li></ul></div>
+      <div><div class="t"><span>🎈 Lazer</span><span>R$ 600</span></div>
+        <ul><li><span>Passeios</span>R$ 350</li><li><span>Assinaturas</span>R$ 250</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="olho">O que tem dentro</p>
+      <h2>Tudo o que mexe no seu bolso, numa tela de celular.</h2>
+    </div>
+    <div class="grade">
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Início</h3><p>Quanto sobrou no mês, tocas com % de uso, patrimônio, gastos por potinho e por banco e os últimos lançamentos.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><h3>Extrato</h3><p>Lançamentos do mês agrupados por dia, com busca e filtros por banco, potinho e pessoa.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg></span><h3>Cartões de crédito</h3><p>Compras agrupadas por fatura, pelo fechamento e vencimento de cada cartão. Pagamentos parciais ou totais e consumo do limite.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Patrimônio</h3><p>Suas aplicações com valor aplicado, valor atual, rendimento e a distribuição entre elas.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><h3>Dívidas</h3><p>Saldo, parcelas, juros e a data de quitação. Um toque em “Pagar parcela” e a conta se atualiza.</p></article>
+      <article class="rec"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .6 3.5 2.6 3.5 6"/></svg></span><h3>Para a família</h3><p>Até 3 pessoas no mesmo espaço, cada uma com seu login. Filtre o extrato por quem gastou.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="importar" class="claro">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="olho">Importação</p>
+      <h2>Chega de digitar gasto por gasto.</h2>
+      <p>Arquivos simples são lidos no próprio navegador. PDFs, prints e textos colados são lidos por inteligência artificial e passam pela sua conferência antes de entrar.</p>
+    </div>
+    <div class="imp">
+      <div class="fmt"><b>OFX</b><p>O extrato padrão dos bancos, lido direto no aparelho.</p></div>
+      <div class="fmt"><b>CSV</b><p>Planilhas exportadas do app ou do internet banking.</p></div>
+      <div class="fmt"><b>PDF</b><p>A fatura do cartão como ela chega no e-mail.</p></div>
+      <div class="fmt"><b>Print</b><p>Uma captura da tela do app do banco, ou o texto copiado e colado.</p></div>
+    </div>
+    <div class="bancos"><small>Com guia de exportação passo a passo:</small><span>Caixa</span><span>Nubank</span><span>Itaú</span><span>PicPay</span><span>Banco do Brasil</span><span>BTG</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cabeca"><p class="olho">Seus dados</p><h2>Cada família na sua própria toca.</h2></div>
+    <div class="seg">
+      <div><h3>Banco de dados só seu</h3><p>Cada cliente tem um banco separado, isolado dos demais. Nada se mistura.</p></div>
+      <div><h3>Senha bem guardada</h3><p>Senhas protegidas com PBKDF2. Todo acesso novo começa com senha provisória, trocada no primeiro login.</p></div>
+      <div><h3>Claro ou escuro</h3><p>Escolha o fundo claro, escuro ou automático, e instale o Grão+ como app na tela inicial.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="plano" class="claro" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="olho">Planos</p>
+      <h2>Dois planos, os mesmos recursos.</h2>
+      <p>A cobrança é recorrente no cartão de crédito: sai uma mensalidade por mês e o valor do ano não fica preso no seu limite.</p>
+    </div>
+    <div class="planos">
+      <div class="plano destaque">
+        <span class="selo-plano">Mais econômico</span>
+        <h3>Anual</h3>
+        <p class="preco">R$ 9,90 <small>/mês</small></p>
+        <p class="sub">Compromisso de 12 meses, cobrado mês a mês no cartão. Sai R$ 118,80 no ano, R$ 60,00 a menos que o mensal.</p>
+        <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Quero o anual</a>
+      </div>
+      <div class="plano">
+        <h3>Mensal</h3>
+        <p class="preco">R$ 14,90 <small>/mês</small></p>
+        <p class="sub">Sem compromisso de permanência. Cancele quando quiser.</p>
+        <a class="btn btn-roxo" href="https://grao-mais.marantes.workers.dev">Quero o mensal</a>
+      </div>
+    </div>
+    <ul class="inclui">
+      <li>Todas as telas: início, extrato, tocas, cartões, patrimônio e dívidas</li>
+      <li>1 usuário principal e até 2 adicionais</li>
+      <li>100 leituras por IA por mês (faturas em PDF e prints)</li>
+      <li>Importação ilimitada de OFX e CSV</li>
+      <li>Instala no celular como aplicativo</li>
+    </ul>
+  </div>
+</section>
+
+<section id="duvidas">
+  <div class="wrap">
+    <div class="cabeca"><p class="olho">Dúvidas</p><h2>Perguntas frequentes</h2></div>
+    <div class="faq">
+      <details><summary>Preciso baixar na loja de aplicativos?</summary><p>Não. O Grão+ abre no navegador e pode ser instalado na tela inicial do Android ou do iPhone, como qualquer app.</p></details>
+      <details><summary>O Grão+ se conecta ao meu banco?</summary><p>Não. Você exporta o extrato ou a fatura do banco e importa no Grão+. Assim ninguém precisa da sua senha do banco.</p></details>
+      <details><summary>Em que mês entra uma compra no cartão?</summary><p>No mês do vencimento da fatura. O Grão+ usa o fechamento e o vencimento de cada cartão para colocar a compra na fatura certa.</p></details>
+      <details><summary>E se eu importar o mesmo extrato duas vezes?</summary><p>Na conferência, os lançamentos repetidos já aparecem desmarcados. Pagamentos de fatura também, para o gasto não contar em dobro.</p></details>
+      <details><summary>O que acontece quando acabam as leituras por IA do mês?</summary><p>Só a leitura de PDFs e prints pausa até o mês seguinte. OFX, CSV e todo o resto continuam funcionando normalmente.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="fecho">
+  <div class="wrap">
+    <svg class="esq" viewBox="88 108 396 352" aria-hidden="true"><use href="#esq"/></svg>
+    <h2>Comece a encher a sua toca.</h2>
+    <p>Junte os extratos, crie seus potinhos e descubra quanto sobra de verdade no fim do mês.</p>
+    <a class="btn btn-grao" href="https://grao-mais.marantes.workers.dev">Abrir o Grão+</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span><b style="color:#fff">Grão<span style="color:var(--grao)">+</span></b> · Finanças pessoais</span><span>De grão em grão, a gente enche a toca.</span></div></footer>
+</body>
+</html>
